@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import fs from "fs";
+import path from "path";
 import { createServer } from "https";
 // import { createServer } from "http";
 import cors from "cors";
@@ -10,8 +11,8 @@ app.use(express.json());
 app.use(cors());
 
 const config = {
-  key: "",
-  cert: "",
+  key: fs.readFileSync(path.join(__dirname, "certs", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "certs", "cert.pem")),
 };
 
 const routes = new Router();
