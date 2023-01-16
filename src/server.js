@@ -44,5 +44,5 @@ const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
 httpsServer.listen(process.env.PORT_SSL || 443, () => {
-  console.log(`Server listen in port: ${process.env.PORT || 8080}`);
+  console.log(`Server listen in port: ${process.env.PORT_SSL || 8080}`);
 });
