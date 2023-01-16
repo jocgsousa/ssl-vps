@@ -9,6 +9,7 @@ import "dotenv/config";
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static(__dirname, { dotfiles: "allow" }));
 
 const config = {
   key: fs.readFileSync(path.join(__dirname, "certs", "key.pem")),
