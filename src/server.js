@@ -1,8 +1,8 @@
 import express, { Router } from "express";
 import fs from "fs";
-import path from "path";
-import { createServer } from "https";
-// import { createServer } from "http";
+import https from "https";
+import http from "http";
+
 import cors from "cors";
 import "dotenv/config";
 
@@ -10,11 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname, { dotfiles: "allow" }));
-
-// const config = {
-//   key: fs.readFileSync(path.join(__dirname, "certs", "key.pem")),
-//   cert: fs.readFileSync(path.join(__dirname, "certs", "cert.pem")),
-// };
 
 // Certificate
 const privateKey = fs.readFileSync(
@@ -44,8 +39,10 @@ routes.get("/", (req, res) => {
 
 app.use(routes);
 
-const server = createServer(credentials, app);
+// Starting both http & https servers
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
-server.listen(process.env.PORT || 8080, () => {
+httpsServer.listen(process.env.PORT_SSL || 443, () => {
   console.log(`Server listen in port: ${process.env.PORT || 8080}`);
 });
