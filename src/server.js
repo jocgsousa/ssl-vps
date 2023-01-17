@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.static(__dirname, { dotfiles: "allow" }));
 
 // FORCE HTTPS REQUESTS
-app.use(secure());
+app.use(secure);
 
 // Certificate
 const privateKey = fs.readFileSync(
