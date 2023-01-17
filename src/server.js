@@ -11,35 +11,35 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname, { dotfiles: "allow" }));
 
-// FORCE HTTPS REQUESTS
-function requireHTTPS(req, res, next) {
-  // The 'x-forwarded-proto' check is for Heroku
-  if (!req.secure && req.get("x-forwarded-proto") !== "https") {
-    return res.redirect("https://" + req.get("host") + req.url);
-  }
-  next();
-}
-app.use(requireHTTPS);
+// // FORCE HTTPS REQUESTS
+// function requireHTTPS(req, res, next) {
+//   // The 'x-forwarded-proto' check is for Heroku
+//   if (!req.secure && req.get("x-forwarded-proto") !== "https") {
+//     return res.redirect("https://" + req.get("host") + req.url);
+//   }
+//   next();
+// }
+// app.use(requireHTTPS);
 
-// Certificate
-const privateKey = fs.readFileSync(
-  "/etc/letsencrypt/live/schhsoinbit.ga/privkey.pem",
-  "utf8"
-);
-const certificate = fs.readFileSync(
-  "/etc/letsencrypt/live/schhsoinbit.ga/cert.pem",
-  "utf8"
-);
-const ca = fs.readFileSync(
-  "/etc/letsencrypt/live/schhsoinbit.ga/fullchain.pem",
-  "utf8"
-);
+// // Certificate
+// const privateKey = fs.readFileSync(
+//   "/etc/letsencrypt/live/schhsoinbit.ga/privkey.pem",
+//   "utf8"
+// );
+// const certificate = fs.readFileSync(
+//   "/etc/letsencrypt/live/schhsoinbit.ga/cert.pem",
+//   "utf8"
+// );
+// const ca = fs.readFileSync(
+//   "/etc/letsencrypt/live/schhsoinbit.ga/fullchain.pem",
+//   "utf8"
+// );
 
-const credentials = {
-  key: privateKey,
-  cert: certificate,
-  ca: ca,
-};
+// const credentials = {
+//   key: privateKey,
+//   cert: certificate,
+//   ca: ca,
+// };
 
 const routes = new Router();
 
@@ -51,11 +51,11 @@ app.use(routes);
 
 // Starting both http & https servers
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+// const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(process.env.PORT_SSL || 443, () => {
-  console.log(`Server https listen in port: ${process.env.PORT_SSL || 8080}`);
-});
+// httpsServer.listen(process.env.PORT_SSL || 443, () => {
+//   console.log(`Server https listen in port: ${process.env.PORT_SSL || 8080}`);
+// });
 
 httpServer.listen(process.env.PORT || 80, () => {
   console.log(`Server http listen in port: ${process.env.PORT || 80}`);
