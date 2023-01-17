@@ -2,7 +2,6 @@ import express, { Router } from "express";
 import fs from "fs";
 import https from "https";
 import http from "http";
-import secure from "express-force-https";
 
 import cors from "cors";
 import "dotenv/config";
@@ -13,7 +12,6 @@ app.use(cors());
 app.use(express.static(__dirname, { dotfiles: "allow" }));
 
 // FORCE HTTPS REQUESTS
-app.use(secure);
 
 // Certificate
 const privateKey = fs.readFileSync(
