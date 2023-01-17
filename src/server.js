@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname, { dotfiles: "allow" }));
+
 // FORCE HTTPS REQUESTS
 app.use(function (request, response, next) {
   if (process.env.NODE_ENV !== "development" && !request.secure) {
