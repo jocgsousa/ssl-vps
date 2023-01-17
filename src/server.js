@@ -23,15 +23,15 @@ app.use(requireHTTPS);
 
 // Certificate
 const privateKey = fs.readFileSync(
-  "/etc/letsencrypt/live/schhsoinbit.ga/privkey.pem",
+  "/etc/letsencrypt/live/liderpremios.info/privkey.pem",
   "utf8"
 );
 const certificate = fs.readFileSync(
-  "/etc/letsencrypt/live/schhsoinbit.ga/cert.pem",
+  "/etc/letsencrypt/live/liderpremios.info/cert.pem",
   "utf8"
 );
 const ca = fs.readFileSync(
-  "/etc/letsencrypt/live/schhsoinbit.ga/fullchain.pem",
+  "/etc/letsencrypt/live/liderpremios.info/fullchain.pem",
   "utf8"
 );
 
