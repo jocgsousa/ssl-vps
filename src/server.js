@@ -21,7 +21,7 @@ function requireHTTPS(req, res, next) {
 }
 app.use(requireHTTPS);
 
-Certificate;
+// Certificate;
 const privateKey = fs.readFileSync(
   "/etc/letsencrypt/live/apdata.cloud/privkey.pem",
   "utf8"
