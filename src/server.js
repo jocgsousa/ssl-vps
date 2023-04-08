@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import fs from "fs";
 import https from "https";
 import http from "http";
+import "dotenv/config";
 
 import cors from "cors";
 import "dotenv/config";
@@ -19,27 +20,32 @@ function requireHTTPS(req, res, next) {
   }
   next();
 }
-app.use(requireHTTPS);
 
-// Certificate;
-const privateKey = fs.readFileSync(
-  "/etc/letsencrypt/live/apdata.cloud/privkey.pem",
-  "utf8"
-);
-const certificate = fs.readFileSync(
-  "/etc/letsencrypt/live/apdata.cloud/cert.pem",
-  "utf8"
-);
-const ca = fs.readFileSync(
-  "/etc/letsencrypt/live/apdata.cloud/fullchain.pem",
-  "utf8"
-);
+const ssl_active = Number(process.env.SSL);
 
-const credentials = {
-  key: privateKey,
-  cert: certificate,
-  ca: ca,
-};
+if (ssl_active) {
+  app.use(requireHTTPS);
+
+  // Certificate;
+  const privateKey = fs.readFileSync(
+    "/etc/letsencrypt/live/apdata.cloud/privkey.pem",
+    "utf8"
+  );
+  const certificate = fs.readFileSync(
+    "/etc/letsencrypt/live/apdata.cloud/cert.pem",
+    "utf8"
+  );
+  const ca = fs.readFileSync(
+    "/etc/letsencrypt/live/apdata.cloud/fullchain.pem",
+    "utf8"
+  );
+
+  var credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca,
+  };
+}
 
 const routes = new Router();
 
@@ -51,11 +57,14 @@ app.use(routes);
 
 // Starting both http & https servers
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(process.env.PORT_SSL || 443, () => {
-  console.log(`Server https listen in port: ${process.env.PORT_SSL || 8080}`);
-});
+if (ssl_active) {
+  const httpsServer = https.createServer(credentials, app);
+
+  httpsServer.listen(process.env.PORT_SSL || 443, () => {
+    console.log(`Server https listen in port: ${process.env.PORT_SSL || 8080}`);
+  });
+}
 
 httpServer.listen(process.env.PORT || 80, () => {
   console.log(`Server http listen in port: ${process.env.PORT || 80}`);
