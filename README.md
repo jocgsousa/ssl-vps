@@ -18,6 +18,8 @@ e dentro colocar o valor do token inteiro e salvar.
 
 e continuar no certbot
 
+Criando as pastas do zero:
+
 cd project
 
 cd src
