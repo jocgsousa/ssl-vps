@@ -1,13 +1,13 @@
+# LINUX
 sudo apt-get install software-properties-common
-
 sudo apt-get update
-
 sudo add-apt-repository ppa:certbot/certbot
-
 sudo apt-get update
-
 sudo apt-get install certbot
 
+# WINDOWS: SEGUIR LINK
+https://certbot.eff.org/instructions?ws=other&os=windows
+# PRÓXIMO
 certbot certonly --manual
 
 Antes de continuar devera deixar o servidor rodando na porta 80
