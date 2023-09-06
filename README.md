@@ -5,28 +5,24 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 sudo apt-get install certbot
 
-# WINDOWS: SEGUIR LINK
+# WINDOWS
 https://certbot.eff.org/instructions?ws=other&os=windows
-# PRÓXIMO
+
+# PRÓXIMO WINDOWS OU LINUX
+Antes de continuar já deixe o servidor rodando na porta 80, pois a entidade vai precisar se conexão ao domínio que esta apontado para o servidor,
+e o meio de acesso é pela porta 80.
+
+Em seguida execute o comando a seguir:
+
 certbot certonly --manual
 
-Antes de continuar devera deixar o servidor rodando na porta 80
-e criar um arquivo na pasta src/.well-know/acme-challenge com o nome a primeira parte do token gerado:
+Informe o dominio e siga os passos até ele gerar um token, onde a primeira parte antes do ponto '.' deverá ser o nome do arquivo, depois
+o token inteiro como o valor deste arquivo. crie o arquivo na pasta src/.well-know/acme-challenge com o nome a primeira parte do token gerado exemplo:
 "adsasdasdadaksjda8sd8a8dad".dd9adj9ajsd9jas9djasddajd9a
 
-e dentro colocar o valor do token inteiro e salvar.
+E dentro colocar o valor do token inteiro e salvar.
 
-e continuar no certbot
-
-Criando as pastas do zero:
-
-cd project
-
-cd src
-
-mkdir .well-known
-
-cd .well-known
+E continuar no certbot até o processo gerar os arquivos do certificado, dependendo do sistema pode ser que ele salve os arquivos em pastas específicas dentro do sistema. Localize os arquivos e salve-os na pasta certs dentro do projeto do servidor em src/certs/ e jogue aqui os dados do certificado gerado e importe dentro do projeto para uso.
 
 mkdir acme-challenge
 
